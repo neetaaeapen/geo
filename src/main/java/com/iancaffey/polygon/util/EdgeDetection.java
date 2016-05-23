@@ -70,26 +70,10 @@ public class EdgeDetection {
         return buffer -> {
             boolean[][] checked = new boolean[buffer.length][buffer[0].length];
             int count = 0;
-            int minX = -1;
-            int minY = -1;
-            int maxX = -1;
-            int maxY = -1;
-            for (int y = 0; y < buffer.length; y++) {
-                for (int x = 0; x < buffer[y].length; x++) {
-                    checked[y][x] = Math.abs((buffer[y][x] - rgb) / (double) Color.BLACK.getRGB()) < threshold;
-                    if (checked[y][x]) {
+            for (int y = 0; y < buffer.length; y++)
+                for (int x = 0; x < buffer[y].length; x++)
+                    if (checked[y][x] = Math.abs((buffer[y][x] - rgb) / (double) Color.BLACK.getRGB()) < threshold)
                         count++;
-                        if (minX == -1 || x < minX)
-                            minX = x;
-                        if (minY == -1 || y < minY)
-                            minY = y;
-                        if (maxX == -1 || x > maxX)
-                            maxX = x;
-                        if (maxY == -1 || y > maxY)
-                            maxY = y;
-                    }
-                }
-            }
             int n = 0;
             int[] x = new int[count];
             int[] y = new int[count];
