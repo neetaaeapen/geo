@@ -29,7 +29,11 @@ public class Test {
             } catch (IOException e) {
                 return null;
             }
-        }).map(RasterTransform.buffer()).map(RasterTransform.grayscale(Grayscale.LUMINOSITY)).map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE)).map(PolyTransform.intToImage()).forEach(image1 -> panel2.add(new JLabel(new ImageIcon(image1))));
+        }).map(RasterTransform.toBuffer())
+                .map(RasterTransform.toGrayscale(Grayscale.LUMINOSITY))
+                .map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE))
+                .map(PolyTransform.intToImage())
+                .forEach(image1 -> panel2.add(new JLabel(new ImageIcon(image1))));
 
         JPanel panel3 = new JPanel(new BorderLayout());
         panel3.add(panel1, BorderLayout.NORTH);

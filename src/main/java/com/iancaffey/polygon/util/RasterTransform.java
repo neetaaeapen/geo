@@ -14,7 +14,7 @@ public class RasterTransform {
 
     }
 
-    public static Function<BufferedImage, int[][]> buffer() {
+    public static Function<BufferedImage, int[][]> toBuffer() {
         return image -> {
             int[][] buffer = new int[image.getHeight()][image.getWidth()];
             for (int y = 0; y < buffer.length; y++)
@@ -24,7 +24,7 @@ public class RasterTransform {
         };
     }
 
-    public static Function<int[][], int[][]> grayscale(Grayscale grayscale) {
+    public static Function<int[][], int[][]> toGrayscale(Grayscale grayscale) {
         if (grayscale == null)
             throw new IllegalArgumentException();
         return array -> {
