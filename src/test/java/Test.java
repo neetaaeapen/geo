@@ -1,5 +1,7 @@
 import com.iancaffey.polygon.util.EdgeDetection;
-import com.iancaffey.polygon.util.PolyRendering;
+import com.iancaffey.polygon.util.Grayscale;
+import com.iancaffey.polygon.util.PolyTransform;
+import com.iancaffey.polygon.util.RasterTransform;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,7 +29,7 @@ public class Test {
             } catch (IOException e) {
                 return null;
             }
-        }).map(PolyRendering.buffer()).map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE)).map(PolyRendering.intToImage()).forEach(image1 -> panel2.add(new JLabel(new ImageIcon(image1))));
+        }).map(RasterTransform.buffer()).map(RasterTransform.grayscale(Grayscale.LUMINOSITY)).map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE)).map(PolyTransform.intToImage()).forEach(image1 -> panel2.add(new JLabel(new ImageIcon(image1))));
 
         JPanel panel3 = new JPanel(new BorderLayout());
         panel3.add(panel1, BorderLayout.NORTH);
