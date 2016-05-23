@@ -1,6 +1,5 @@
 import com.iancaffey.polygon.util.EdgeDetection;
 import com.iancaffey.polygon.util.Grayscale;
-import com.iancaffey.polygon.util.PolyTransform;
 import com.iancaffey.polygon.util.RasterTransform;
 
 import javax.imageio.ImageIO;
@@ -26,7 +25,7 @@ public class Test {
                 .map(RasterTransform.toBuffer())
                 .map(RasterTransform.toGrayscale(Grayscale.LUMINOSITY))
                 .map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE))
-                .map(PolyTransform.intToImage())
+                .map(RasterTransform.toImage())
                 .forEach(image1 -> panel.add(new JLabel(new ImageIcon(image1))));
 
         JFrame frame = new JFrame("Edge Detection");
