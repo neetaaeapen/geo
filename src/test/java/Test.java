@@ -18,22 +18,22 @@ import java.util.stream.IntStream;
  */
 public class Test {
     public static void main(String[] args) throws IOException {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JPanel panel2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel orig = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel edges = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         IntStream.range(0, 40)
-                .mapToObj(imageLoader(panel))
+                .mapToObj(imageLoader(orig))
                 .map(RasterTransform.toBuffer())
                 .map(RasterTransform.toGrayscale(Grayscale.LUMINOSITY))
                 .map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE))
                 .map(RasterTransform.toImage())
-                .forEach(image1 -> panel2.add(new JLabel(new ImageIcon(image1))));
+                .forEach(image -> edges.add(new JLabel(new ImageIcon(image))));
 
         JFrame frame = new JFrame("Edge Detection");
-        JPanel panel3 = new JPanel(new BorderLayout());
-        panel3.add(panel, BorderLayout.NORTH);
-        panel3.add(panel2, BorderLayout.SOUTH);
-        frame.setContentPane(panel3);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(orig, BorderLayout.NORTH);
+        panel.add(edges, BorderLayout.SOUTH);
+        frame.setContentPane(panel);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
