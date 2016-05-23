@@ -13,23 +13,33 @@ import java.util.function.Function;
  */
 public class EdgeDetection {
     public static final double EXACT = 0;
-    public static final double VERY_LOW = 0.0125;
-    public static final double LOW = 0.25;
-    public static final double MEDIUM = 0.5;
-    public static final double HIGH = 0.75;
-    public static final double VERY_HIGH = 0.9125;
+    public static final double VERY_PRECISE = 0.0125;
+    public static final double PRECISE = 0.25;
+    public static final double MODERATE = 0.5;
+    public static final double TOLERANT = 0.75;
+    public static final double VERY_TOLERANT = 0.9125;
     public static final double ANY = 1;
 
     private EdgeDetection() {
 
     }
 
-    public static Function<int[][], IntPoly> colorMatch(Color color) {
-        return colorMatch(color, LOW);
+    public static Function<int[][], IntPoly> grayscaleMatch(Color color) {
+        return grayscaleMatch(color, VERY_PRECISE);
     }
 
-    public static Function<int[][], IntPoly> colorMatch(Color color, double threshold) {
-        if (color == null || threshold < 0 || threshold > 1)
+    public static Function<int[][], IntPoly> grayscaleMatch(Color color, double threshold) {
+        if (color == null)
+            throw new IllegalArgumentException();
+        return grayscaleMatch(color.getRGB(), threshold);
+    }
+
+    public static Function<int[][], IntPoly> grayscaleMatch(int rgb) {
+        return grayscaleMatch(rgb, VERY_PRECISE);
+    }
+
+    public static Function<int[][], IntPoly> grayscaleMatch(int rgb, double threshold) {
+        if (threshold < 0 || threshold > 1)
             throw new IllegalArgumentException();
         return buffer -> {
             boolean[][] checked = new boolean[buffer.length][buffer[0].length];
@@ -40,7 +50,7 @@ public class EdgeDetection {
             int maxY = -1;
             for (int y = 0; y < buffer.length; y++) {
                 for (int x = 0; x < buffer[y].length; x++) {
-                    checked[y][x] = Math.abs((buffer[y][x] - color.getRGB()) / (double) Color.BLACK.getRGB()) < threshold;
+                    checked[y][x] = Math.abs((buffer[y][x] - rgb) / (double) Color.BLACK.getRGB()) < threshold;
                     if (checked[y][x]) {
                         count++;
                         if (minX == -1 || x < minX)
