@@ -27,7 +27,7 @@ public class Test {
             } catch (IOException e) {
                 return null;
             }
-        }).map(PolyRendering.buffer()).map(EdgeDetection.colorMatch(Color.BLACK, 0.0125)).map(PolyRendering.intToImage()).forEach(image1 -> panel2.add(new JLabel(new ImageIcon(image1))));
+        }).map(PolyRendering.buffer()).map(EdgeDetection.colorMatch(Color.BLACK, EdgeDetection.VERY_LOW)).map(PolyRendering.intToImage()).forEach(image1 -> panel2.add(new JLabel(new ImageIcon(image1))));
 
         JPanel panel3 = new JPanel(new BorderLayout());
         panel3.add(panel1, BorderLayout.NORTH);

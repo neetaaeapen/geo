@@ -13,6 +13,11 @@ import java.util.function.Function;
  */
 public class EdgeDetection {
     public static final double EXACT = 0;
+    public static final double VERY_LOW = 0.0125;
+    public static final double LOW = 0.25;
+    public static final double MEDIUM = 0.5;
+    public static final double HIGH = 0.75;
+    public static final double VERY_HIGH = 0.9125;
     public static final double ANY = 1;
 
     private EdgeDetection() {
@@ -20,7 +25,7 @@ public class EdgeDetection {
     }
 
     public static Function<int[][], IntPoly> colorMatch(Color color) {
-        return colorMatch(color, 0.25);
+        return colorMatch(color, LOW);
     }
 
     public static Function<int[][], IntPoly> colorMatch(Color color, double threshold) {
