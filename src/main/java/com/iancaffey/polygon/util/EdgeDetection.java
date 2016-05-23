@@ -43,32 +43,9 @@ public class EdgeDetection {
             throw new IllegalArgumentException();
         return buffer -> {
             int black = Color.BLACK.getRGB();
-            boolean[][] checked = new boolean[buffer.length][buffer[0].length];
-            int count = 0;
-            int minX = -1;
-            int minY = -1;
-            int maxX = -1;
-            int maxY = -1;
-            for (int y = 0; y < buffer.length; y++) {
-                for (int x = 0; x < buffer[y].length; x++) {
-                    checked[y][x] = Math.abs((buffer[y][x] - rgb) / (double) black) < threshold;
-                    if (checked[y][x]) {
-                        count++;
-                        if (minX == -1 || x < minX)
-                            minX = x;
-                        if (minY == -1 || y < minY)
-                            minY = y;
-                        if (maxX == -1 || x > maxX)
-                            maxX = x;
-                        if (maxY == -1 || y > maxY)
-                            maxY = y;
-                    }
-                }
-            }
-            for (int i = 0; i < checked.length; i++)
-                for (int j = 0; j < checked[i].length; j++)
-                    buffer[i][j] = checked[i][j] ? black : 0;
-
+            for (int y = 0; y < buffer.length; y++)
+                for (int x = 0; x < buffer[y].length; x++)
+                    buffer[y][x] = Math.abs((buffer[y][x] - rgb) / (double) black) < threshold ? black : 0;
             return buffer;
         };
     }

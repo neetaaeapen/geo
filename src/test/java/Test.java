@@ -19,27 +19,33 @@ import java.util.stream.IntStream;
 public class Test {
     public static void main(String[] args) throws IOException {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel panel2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         IntStream.range(0, 40)
-                .mapToObj(Test.read())
+                .mapToObj(imageLoader(panel))
                 .map(RasterTransform.toBuffer())
                 .map(RasterTransform.toGrayscale(Grayscale.LUMINOSITY))
                 .map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE))
                 .map(RasterTransform.toImage())
-                .forEach(image1 -> panel.add(new JLabel(new ImageIcon(image1))));
+                .forEach(image1 -> panel2.add(new JLabel(new ImageIcon(image1))));
 
         JFrame frame = new JFrame("Edge Detection");
-        frame.setContentPane(panel);
+        JPanel panel3 = new JPanel(new BorderLayout());
+        panel3.add(panel, BorderLayout.NORTH);
+        panel3.add(panel2, BorderLayout.SOUTH);
+        frame.setContentPane(panel3);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
-    public static IntFunction<BufferedImage> read() {
+    public static IntFunction<BufferedImage> imageLoader(JPanel panel) {
         return value -> {
             try {
-                return ImageIO.read(ClassLoader.getSystemResourceAsStream(value + ".png"));
+                BufferedImage image = ImageIO.read(ClassLoader.getSystemResourceAsStream(value + ".png"));
+                panel.add(new JLabel(new ImageIcon(image)));
+                return image;
             } catch (IOException e) {
                 return null;
             }
