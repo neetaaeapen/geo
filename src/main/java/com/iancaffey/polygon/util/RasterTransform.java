@@ -24,15 +24,9 @@ public interface RasterTransform {
         if (grayscale == null)
             throw new IllegalArgumentException();
         return array -> {
-            for (int i = 0; i < array.length; i++) {
-                for (int j = 0; j < array[i].length; j++) {
-                    int r = (array[i][j] >> 16) & 0xFF;
-                    int g = (array[i][j] >> 8) & 0xFF;
-                    int b = array[i][j] & 0xFF;
-                    int a = (array[i][j] >> 24) & 0xff;
-                    array[i][j] = grayscale.convert(r, g, b, a);
-                }
-            }
+            for (int i = 0; i < array.length; i++)
+                for (int j = 0; j < array[i].length; j++)
+                    array[i][j] = grayscale.convert((array[i][j] >> 16) & 0xFF, (array[i][j] >> 8) & 0xFF, array[i][j] & 0xFF, (array[i][j] >> 24) & 0xFF);
             return array;
         };
     }
