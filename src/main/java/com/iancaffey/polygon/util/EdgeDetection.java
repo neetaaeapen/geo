@@ -11,7 +11,7 @@ import java.util.function.Function;
  * @author Ian Caffey
  * @since 1.0
  */
-public class EdgeDetection {
+public interface EdgeDetection {
     public static final double EXACT = 0;
     public static final double VERY_PRECISE = 0.0125;
     public static final double PRECISE = 0.25;
@@ -19,10 +19,6 @@ public class EdgeDetection {
     public static final double TOLERANT = 0.75;
     public static final double VERY_TOLERANT = 0.9125;
     public static final double ANY = 1;
-
-    private EdgeDetection() {
-
-    }
 
     public static Function<int[][], int[][]> grayscaleMatch(Color color) {
         return grayscaleMatch(color, VERY_PRECISE);

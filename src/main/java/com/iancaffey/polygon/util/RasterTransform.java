@@ -9,11 +9,7 @@ import java.util.function.Function;
  * @author Ian Caffey
  * @since 1.0
  */
-public class RasterTransform {
-    private RasterTransform() {
-
-    }
-
+public interface RasterTransform {
     public static Function<BufferedImage, int[][]> toBuffer() {
         return image -> {
             int[][] buffer = new int[image.getHeight()][image.getWidth()];

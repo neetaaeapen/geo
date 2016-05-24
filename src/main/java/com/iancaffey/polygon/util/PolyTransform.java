@@ -12,11 +12,7 @@ import java.util.function.Function;
  * @author Ian Caffey
  * @since 1.0
  */
-public class PolyTransform {
-    private PolyTransform() {
-
-    }
-
+public interface PolyTransform {
     public static Function<DoublePoly, DoublePoly> doubleToRectilinear() {
         return poly -> {
             DoublePolyBuilder builder = new DoublePolyBuilder();
