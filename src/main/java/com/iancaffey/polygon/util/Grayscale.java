@@ -10,7 +10,7 @@ public enum Grayscale {
     AVERAGE {
         @Override
         public int convert(int r, int g, int b, int a) {
-            int sum = r + g + b / 3;
+            int sum = (r + g + b) / 3;
             return ((a & 0xFF) << 24) | ((sum & 0xFF) << 16) | ((sum & 0xFF) << 8) | ((sum & 0xFF));
         }
     },
