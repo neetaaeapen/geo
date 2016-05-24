@@ -1,7 +1,4 @@
-import com.iancaffey.polygon.util.EdgeDetection;
-import com.iancaffey.polygon.util.Grayscale;
-import com.iancaffey.polygon.util.PolyTransform;
-import com.iancaffey.polygon.util.RasterTransform;
+import com.iancaffey.polygon.util.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,10 +21,11 @@ public class Test {
 
         IntStream.range(0, 40)
                 .mapToObj(imageLoader(orig))
-                .map(RasterTransform.toBuffer())
+                .map(RasterTransform::toBuffer)
                 .map(RasterTransform.toGrayscale(Grayscale.LUMINOSITY))
                 .map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE))
-                .map(PolyTransform.intToImage())
+                .map(ConvexHull::giftWrap)
+                .map(PolyTransform::toImage)
                 .forEach(image -> edges.add(new JLabel(new ImageIcon(image), SwingConstants.LEFT)));
 
         JFrame frame = new JFrame("Edge Detection");

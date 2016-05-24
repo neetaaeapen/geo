@@ -12,9 +12,12 @@ import java.util.function.Function;
  */
 public interface ConvexHull {
     public static Function<IntPoly, IntPoly> intGiftWrap() {
-        return poly -> {
+        return ConvexHull::giftWrap;
+    }
 
-            return poly;
-        };
+    public static IntPoly giftWrap(IntPoly poly) {
+        if (poly == null)
+            throw new IllegalArgumentException();
+        return poly;
     }
 }

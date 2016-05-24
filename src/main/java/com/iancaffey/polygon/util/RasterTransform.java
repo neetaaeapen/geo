@@ -10,16 +10,8 @@ import java.util.function.Function;
  * @since 1.0
  */
 public interface RasterTransform {
-    public static Function<BufferedImage, int[][]> toBuffer() {
-        return RasterTransform::toBuffer;
-    }
-
     public static Function<int[][], int[][]> toGrayscale(Grayscale grayscale) {
         return array -> toGrayscale(array, grayscale);
-    }
-
-    public static Function<int[][], BufferedImage> toImage() {
-        return RasterTransform::toImage;
     }
 
     public static int[][] toBuffer(BufferedImage image) {

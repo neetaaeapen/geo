@@ -13,22 +13,6 @@ import java.util.function.Function;
  * @since 1.0
  */
 public interface PolyTransform {
-    public static Function<DoublePoly, DoublePoly> doubleToRectilinear() {
-        return PolyTransform::toRectilinear;
-    }
-
-    public static Function<IntPoly, IntPoly> intToRectilinear() {
-        return PolyTransform::toRectilinear;
-    }
-
-    public static Function<LongPoly, LongPoly> longToRectilinear() {
-        return PolyTransform::toRectilinear;
-    }
-
-    public static Function<ShortPoly, ShortPoly> shortToRectilinear() {
-        return PolyTransform::toRectilinear;
-    }
-
     public static DoublePoly toRectilinear(DoublePoly poly) {
         if (poly == null)
             throw new IllegalArgumentException();
@@ -97,32 +81,16 @@ public interface PolyTransform {
         return builder.build();
     }
 
-    public static Function<DoublePoly, BufferedImage> doubleToImage() {
-        return PolyTransform::toImage;
-    }
-
     public static Function<DoublePoly, BufferedImage> doubleToImage(Color color) {
         return poly -> toImage(poly, color);
-    }
-
-    public static Function<IntPoly, BufferedImage> intToImage() {
-        return PolyTransform::toImage;
     }
 
     public static Function<IntPoly, BufferedImage> intToImage(Color color) {
         return poly -> toImage(poly, color);
     }
 
-    public static Function<LongPoly, BufferedImage> longToImage() {
-        return PolyTransform::toImage;
-    }
-
     public static Function<LongPoly, BufferedImage> longToImage(Color color) {
         return poly -> toImage(poly, color);
-    }
-
-    public static Function<ShortPoly, BufferedImage> shortToImage() {
-        return PolyTransform::toImage;
     }
 
     public static Function<ShortPoly, BufferedImage> shortToImage(Color color) {
