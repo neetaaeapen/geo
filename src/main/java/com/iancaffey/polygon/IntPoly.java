@@ -46,6 +46,14 @@ public class IntPoly extends AbstractPoly implements Iterable<int[]> {
         return y;
     }
 
+    public IntPoly translate(int dx, int dy) {
+        for (int i = 0; i < length(); i++) {
+            x[i] += dx;
+            y[i] += dy;
+        }
+        return this;
+    }
+
     public Stream<int[]> stream() {
         return StreamSupport.stream(spliterator(), false);
     }

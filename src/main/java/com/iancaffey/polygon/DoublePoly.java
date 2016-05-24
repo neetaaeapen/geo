@@ -46,6 +46,14 @@ public class DoublePoly extends AbstractPoly implements Iterable<double[]> {
         return y;
     }
 
+    public DoublePoly translate(double dx, double dy) {
+        for (int i = 0; i < length(); i++) {
+            x[i] += dx;
+            y[i] += dy;
+        }
+        return this;
+    }
+
     public Stream<double[]> stream() {
         return StreamSupport.stream(spliterator(), false);
     }

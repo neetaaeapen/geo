@@ -46,6 +46,14 @@ public class ShortPoly extends AbstractPoly implements Iterable<short[]> {
         return y;
     }
 
+    public ShortPoly translate(short dx, short dy) {
+        for (int i = 0; i < length(); i++) {
+            x[i] += dx;
+            y[i] += dy;
+        }
+        return this;
+    }
+
     public Stream<short[]> stream() {
         return StreamSupport.stream(spliterator(), false);
     }

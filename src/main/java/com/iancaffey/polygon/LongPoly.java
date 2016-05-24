@@ -46,6 +46,14 @@ public class LongPoly extends AbstractPoly implements Iterable<long[]> {
         return y;
     }
 
+    public LongPoly translate(long dx, long dy) {
+        for (int i = 0; i < length(); i++) {
+            x[i] += dx;
+            y[i] += dy;
+        }
+        return this;
+    }
+
     public Stream<long[]> stream() {
         return StreamSupport.stream(spliterator(), false);
     }

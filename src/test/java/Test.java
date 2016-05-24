@@ -1,5 +1,6 @@
 import com.iancaffey.polygon.util.EdgeDetection;
 import com.iancaffey.polygon.util.Grayscale;
+import com.iancaffey.polygon.util.PolyTransform;
 import com.iancaffey.polygon.util.RasterTransform;
 
 import javax.imageio.ImageIO;
@@ -18,16 +19,16 @@ import java.util.stream.IntStream;
  */
 public class Test {
     public static void main(String[] args) throws IOException {
-        JPanel orig = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JPanel edges = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel orig = new JPanel(new GridLayout(1, 40));
+        JPanel edges = new JPanel(new GridLayout(1, 40));
 
         IntStream.range(0, 40)
                 .mapToObj(imageLoader(orig))
                 .map(RasterTransform.toBuffer())
                 .map(RasterTransform.toGrayscale(Grayscale.LUMINOSITY))
-                .map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE))
-                .map(RasterTransform.toImage())
-                .forEach(image -> edges.add(new JLabel(new ImageIcon(image))));
+                .map(EdgeDetection.grayscaleMatchPoly(Color.BLACK, EdgeDetection.VERY_PRECISE))
+                .map(PolyTransform.intToImage())
+                .forEach(image -> edges.add(new JLabel(new ImageIcon(image), SwingConstants.LEFT)));
 
         JFrame frame = new JFrame("Edge Detection");
         JPanel panel = new JPanel(new BorderLayout());
@@ -44,7 +45,7 @@ public class Test {
         return value -> {
             try {
                 BufferedImage image = ImageIO.read(ClassLoader.getSystemResourceAsStream(value + ".png"));
-                panel.add(new JLabel(new ImageIcon(image)));
+                panel.add(new JLabel(new ImageIcon(image), SwingConstants.LEFT));
                 return image;
             } catch (IOException e) {
                 return null;

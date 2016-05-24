@@ -69,10 +69,11 @@ public class EdgeDetection {
             throw new IllegalArgumentException();
         return buffer -> {
             boolean[][] checked = new boolean[buffer.length][buffer[0].length];
+            int black = Color.BLACK.getRGB();
             int count = 0;
             for (int y = 0; y < buffer.length; y++)
                 for (int x = 0; x < buffer[y].length; x++)
-                    if (checked[y][x] = Math.abs((buffer[y][x] - rgb) / (double) Color.BLACK.getRGB()) < threshold)
+                    if (checked[y][x] = (Math.abs((buffer[y][x] - rgb) / (double) black) < threshold))
                         count++;
             int n = 0;
             int[] x = new int[count];
