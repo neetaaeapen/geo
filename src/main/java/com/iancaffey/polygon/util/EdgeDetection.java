@@ -21,42 +21,56 @@ public interface EdgeDetection {
     public static final double ANY = 1;
 
     public static Function<int[][], IntPoly> grayscaleMatch(Color color) {
-        return grayscaleMatch(color, VERY_PRECISE);
+        return buffer -> grayscaleMatch(buffer, color);
     }
 
     public static Function<int[][], IntPoly> grayscaleMatch(Color color, double threshold) {
-        if (color == null)
-            throw new IllegalArgumentException();
-        return grayscaleMatch(color.getRGB(), threshold);
+        return buffer -> grayscaleMatch(buffer, color, threshold);
     }
 
     public static Function<int[][], IntPoly> grayscaleMatch(int rgb) {
-        return grayscaleMatch(rgb, VERY_PRECISE);
+        return buffer -> grayscaleMatch(buffer, rgb);
     }
 
     public static Function<int[][], IntPoly> grayscaleMatch(int rgb, double threshold) {
+        return buffer -> grayscaleMatch(buffer, rgb, threshold);
+    }
+
+    public static IntPoly grayscaleMatch(int[][] buffer, Color color) {
+        return grayscaleMatch(buffer, color, VERY_PRECISE);
+    }
+
+    public static IntPoly grayscaleMatch(int[][] buffer, Color color, double threshold) {
+        if (color == null)
+            throw new IllegalArgumentException();
+        return grayscaleMatch(buffer, color.getRGB(), threshold);
+    }
+
+    public static IntPoly grayscaleMatch(int[][] buffer, int rgb) {
+        return grayscaleMatch(buffer, rgb, VERY_PRECISE);
+    }
+
+    public static IntPoly grayscaleMatch(int[][] buffer, int rgb, double threshold) {
         if (threshold < 0 || threshold > 1)
             throw new IllegalArgumentException();
-        return buffer -> {
-            boolean[][] checked = new boolean[buffer.length][buffer[0].length];
-            int black = Color.BLACK.getRGB();
-            int count = 0;
-            for (int y = 0; y < buffer.length; y++)
-                for (int x = 0; x < buffer[y].length; x++)
-                    if (checked[y][x] = (Math.abs((buffer[y][x] - rgb) / (double) black) < threshold))
-                        count++;
-            int n = 0;
-            int[] x = new int[count];
-            int[] y = new int[count];
-            for (int i = 0; i < checked.length; i++) {
-                for (int j = 0; j < checked[i].length; j++) {
-                    if (checked[i][j]) {
-                        x[n] = j;
-                        y[n++] = i;
-                    }
+        boolean[][] checked = new boolean[buffer.length][buffer[0].length];
+        int black = Color.BLACK.getRGB();
+        int count = 0;
+        for (int y = 0; y < buffer.length; y++)
+            for (int x = 0; x < buffer[y].length; x++)
+                if (checked[y][x] = (Math.abs((buffer[y][x] - rgb) / (double) black) < threshold))
+                    count++;
+        int n = 0;
+        int[] x = new int[count];
+        int[] y = new int[count];
+        for (int i = 0; i < checked.length; i++) {
+            for (int j = 0; j < checked[i].length; j++) {
+                if (checked[i][j]) {
+                    x[n] = j;
+                    y[n++] = i;
                 }
             }
-            return new IntPoly(x, y, count);
-        };
+        }
+        return new IntPoly(x, y, count);
     }
 }
