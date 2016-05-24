@@ -26,7 +26,7 @@ public class Test {
                 .mapToObj(imageLoader(orig))
                 .map(RasterTransform.toBuffer())
                 .map(RasterTransform.toGrayscale(Grayscale.LUMINOSITY))
-                .map(EdgeDetection.grayscaleMatchPoly(Color.BLACK, EdgeDetection.VERY_PRECISE))
+                .map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE))
                 .map(PolyTransform.intToImage())
                 .forEach(image -> edges.add(new JLabel(new ImageIcon(image), SwingConstants.LEFT)));
 

@@ -20,47 +20,21 @@ public interface EdgeDetection {
     public static final double VERY_TOLERANT = 0.9125;
     public static final double ANY = 1;
 
-    public static Function<int[][], int[][]> grayscaleMatch(Color color) {
+    public static Function<int[][], IntPoly> grayscaleMatch(Color color) {
         return grayscaleMatch(color, VERY_PRECISE);
     }
 
-    public static Function<int[][], int[][]> grayscaleMatch(Color color, double threshold) {
+    public static Function<int[][], IntPoly> grayscaleMatch(Color color, double threshold) {
         if (color == null)
             throw new IllegalArgumentException();
         return grayscaleMatch(color.getRGB(), threshold);
     }
 
-    public static Function<int[][], int[][]> grayscaleMatch(int rgb) {
+    public static Function<int[][], IntPoly> grayscaleMatch(int rgb) {
         return grayscaleMatch(rgb, VERY_PRECISE);
     }
 
-    public static Function<int[][], int[][]> grayscaleMatch(int rgb, double threshold) {
-        if (threshold < 0 || threshold > 1)
-            throw new IllegalArgumentException();
-        return buffer -> {
-            int black = Color.BLACK.getRGB();
-            for (int y = 0; y < buffer.length; y++)
-                for (int x = 0; x < buffer[y].length; x++)
-                    buffer[y][x] = Math.abs((buffer[y][x] - rgb) / (double) black) < threshold ? black : 0;
-            return buffer;
-        };
-    }
-
-    public static Function<int[][], IntPoly> grayscaleMatchPoly(Color color) {
-        return grayscaleMatchPoly(color, VERY_PRECISE);
-    }
-
-    public static Function<int[][], IntPoly> grayscaleMatchPoly(Color color, double threshold) {
-        if (color == null)
-            throw new IllegalArgumentException();
-        return grayscaleMatchPoly(color.getRGB(), threshold);
-    }
-
-    public static Function<int[][], IntPoly> grayscaleMatchPoly(int rgb) {
-        return grayscaleMatchPoly(rgb, VERY_PRECISE);
-    }
-
-    public static Function<int[][], IntPoly> grayscaleMatchPoly(int rgb, double threshold) {
+    public static Function<int[][], IntPoly> grayscaleMatch(int rgb, double threshold) {
         if (threshold < 0 || threshold > 1)
             throw new IllegalArgumentException();
         return buffer -> {
