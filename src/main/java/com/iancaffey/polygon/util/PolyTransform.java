@@ -105,17 +105,15 @@ public interface PolyTransform {
         if (poly == null || color == null)
             throw new IllegalArgumentException();
         final int rgb = color.getRGB();
-        double maxX = 0;
-        double maxY = 0;
-        for (double[] i : poly) {
-            if (i[0] > maxX)
-                maxX = i[0];
-            if (i[1] > maxY)
-                maxY = i[1];
-        }
-        BufferedImage image = new BufferedImage((int) Math.round(maxX + 1), (int) Math.round(maxY + 1), BufferedImage.TYPE_INT_ARGB);
-        for (double[] i : poly)
-            image.setRGB((int) Math.round(i[0]), (int) Math.round(i[1]), rgb);
+        final double[] max = {0, 0};
+        poly.stream().forEach(i -> {
+            if (i[0] > max[0])
+                max[0] = i[0];
+            if (i[1] > max[1])
+                max[1] = i[1];
+        });
+        BufferedImage image = new BufferedImage((int) Math.round(max[0] + 1), (int) Math.round(max[1] + 1), BufferedImage.TYPE_INT_ARGB);
+        poly.stream().forEach(i -> image.setRGB((int) Math.round(i[0]), (int) Math.round(i[1]), rgb));
         return image;
     }
 
@@ -127,17 +125,15 @@ public interface PolyTransform {
         if (poly == null || color == null)
             throw new IllegalArgumentException();
         final int rgb = color.getRGB();
-        int maxX = 0;
-        int maxY = 0;
-        for (int[] i : poly) {
-            if (i[0] > maxX)
-                maxX = i[0];
-            if (i[1] > maxY)
-                maxY = i[1];
-        }
-        BufferedImage image = new BufferedImage(maxX + 1, maxY + 1, BufferedImage.TYPE_INT_ARGB);
-        for (int[] i : poly)
-            image.setRGB(i[0], i[1], rgb);
+        final int[] max = {0, 0};
+        poly.stream().forEach(i -> {
+            if (i[0] > max[0])
+                max[0] = i[0];
+            if (i[1] > max[1])
+                max[1] = i[1];
+        });
+        BufferedImage image = new BufferedImage(max[0] + 1, max[1] + 1, BufferedImage.TYPE_INT_ARGB);
+        poly.stream().forEach(i -> image.setRGB(i[0], i[1], rgb));
         return image;
     }
 
@@ -149,17 +145,15 @@ public interface PolyTransform {
         if (poly == null || color == null)
             throw new IllegalArgumentException();
         final int rgb = color.getRGB();
-        long maxX = 0;
-        long maxY = 0;
-        for (long[] i : poly) {
-            if (i[0] > maxX)
-                maxX = i[0];
-            if (i[1] > maxY)
-                maxY = i[1];
-        }
-        BufferedImage image = new BufferedImage((int) (maxX + 1), (int) (maxY + 1), BufferedImage.TYPE_INT_ARGB);
-        for (long[] i : poly)
-            image.setRGB((int) (i[0]), (int) (i[1]), rgb);
+        final long[] max = {0, 0};
+        poly.stream().forEach(i -> {
+            if (i[0] > max[0])
+                max[0] = i[0];
+            if (i[1] > max[1])
+                max[1] = i[1];
+        });
+        BufferedImage image = new BufferedImage((int) (max[0] + 1), (int) (max[1] + 1), BufferedImage.TYPE_INT_ARGB);
+        poly.stream().forEach(i -> image.setRGB((int) (i[0]), (int) (i[1]), rgb));
         return image;
     }
 
@@ -171,17 +165,15 @@ public interface PolyTransform {
         if (poly == null || color == null)
             throw new IllegalArgumentException();
         final int rgb = color.getRGB();
-        short maxX = 0;
-        short maxY = 0;
-        for (short[] i : poly) {
-            if (i[0] > maxX)
-                maxX = i[0];
-            if (i[1] > maxY)
-                maxY = i[1];
-        }
-        BufferedImage image = new BufferedImage(maxX + 1, maxY + 1, BufferedImage.TYPE_INT_ARGB);
-        for (short[] i : poly)
-            image.setRGB(i[0], i[1], rgb);
+        final short[] max = {0, 0};
+        poly.stream().forEach(i -> {
+            if (i[0] > max[0])
+                max[0] = i[0];
+            if (i[1] > max[1])
+                max[1] = i[1];
+        });
+        BufferedImage image = new BufferedImage(max[0] + 1, max[1] + 1, BufferedImage.TYPE_INT_ARGB);
+        poly.stream().forEach(i -> image.setRGB(i[0], i[1], rgb));
         return image;
     }
 }

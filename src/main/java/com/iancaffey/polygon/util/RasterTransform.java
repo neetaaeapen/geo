@@ -2,6 +2,7 @@ package com.iancaffey.polygon.util;
 
 import java.awt.image.BufferedImage;
 import java.util.function.Function;
+import java.util.stream.IntStream;
 
 /**
  * RasterTransform
@@ -10,26 +11,22 @@ import java.util.function.Function;
  * @since 1.0
  */
 public interface RasterTransform {
-    public static Function<int[][], int[][]> toGrayscale(Grayscale grayscale) {
-        return array -> toGrayscale(array, grayscale);
+    public static Function<int[][], int[][]> apply(PixelTransform transform) {
+        return array -> apply(array, transform);
     }
 
     public static int[][] toBuffer(BufferedImage image) {
         if (image == null)
             throw new IllegalArgumentException();
         int[][] buffer = new int[image.getHeight()][image.getWidth()];
-        for (int y = 0; y < buffer.length; y++)
-            for (int x = 0; x < buffer[y].length; x++)
-                buffer[y][x] = image.getRGB(x, y);
+        IntStream.range(0, buffer.length).forEach(i -> IntStream.range(0, buffer[i].length).forEach(j -> buffer[i][j] = image.getRGB(j, i)));
         return buffer;
     }
 
-    public static int[][] toGrayscale(int[][] buffer, Grayscale grayscale) {
-        if (buffer == null || grayscale == null)
+    public static int[][] apply(int[][] buffer, PixelTransform transform) {
+        if (buffer == null || transform == null)
             throw new IllegalArgumentException();
-        for (int i = 0; i < buffer.length; i++)
-            for (int j = 0; j < buffer[i].length; j++)
-                buffer[i][j] = grayscale.convert((buffer[i][j] >> 16) & 0xFF, (buffer[i][j] >> 8) & 0xFF, buffer[i][j] & 0xFF, (buffer[i][j] >> 24) & 0xFF);
+        IntStream.range(0, buffer.length).forEach(i -> IntStream.range(0, buffer[i].length).forEach(j -> transform.apply(buffer[i][j])));
         return buffer;
     }
 
@@ -37,9 +34,7 @@ public interface RasterTransform {
         if (buffer == null)
             throw new IllegalArgumentException();
         BufferedImage image = new BufferedImage(buffer[0].length, buffer.length, BufferedImage.TYPE_INT_ARGB);
-        for (int i = 0; i < buffer.length; i++)
-            for (int j = 0; j < buffer[i].length; j++)
-                image.setRGB(j, i, buffer[i][j]);
+        IntStream.range(0, buffer.length).forEach(i -> IntStream.range(0, buffer[i].length).forEach(j -> image.setRGB(j, i, buffer[i][j])));
         return image;
     }
 }

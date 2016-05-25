@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.function.Consumer;
 import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 
@@ -19,15 +20,14 @@ public class Test {
         JPanel orig = new JPanel(new GridLayout(1, 40));
         JPanel edges = new JPanel(new GridLayout(1, 40));
 
-        IntStream.range(0, 40)
+        IntStream.range(0, 50)
                 .mapToObj(imageLoader(orig))
                 .map(RasterTransform::toBuffer)
-                .map(RasterTransform.toGrayscale(Grayscale.LUMINOSITY))
+                .map(RasterTransform.apply(Grayscale.LUMINOSITY))
                 .map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE))
                 .map(ConvexHull::giftWrap)
                 .map(PolyTransform::toImage)
-                .forEach(image -> edges.add(new JLabel(new ImageIcon(image), SwingConstants.LEFT)));
-
+                .forEach(imageRenderer(edges));
         JFrame frame = new JFrame("Edge Detection");
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(orig, BorderLayout.NORTH);
@@ -37,6 +37,10 @@ public class Test {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public static Consumer<BufferedImage> imageRenderer(JPanel panel) {
+        return image -> panel.add(new JLabel(new ImageIcon(image), SwingConstants.LEFT));
     }
 
     public static IntFunction<BufferedImage> imageLoader(JPanel panel) {
