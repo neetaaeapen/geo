@@ -1,12 +1,12 @@
 package com.iancaffey.compute.util;
 
 /**
- * MatrixBuilder
+ * ArrayBuilder
  *
  * @author Ian Caffey
  * @since 1.0
  */
-public interface MatrixBuilder<M> {
+public interface ArrayBuilder<M> {
     public int dimension();
 
     public M build();

@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * LongMatrixBuilder
+ * LongArrayBuilder
  *
  * @author Ian Caffey
  * @since 1.0
  */
-public class LongMatrixBuilder extends AbstractMatrixBuilder<long[][]> {
+public class LongArrayBuilder extends AbstractArrayBuilder<long[][]> {
     private final List<long[]> values = new ArrayList<>();
 
-    public LongMatrixBuilder(int dimension) {
+    public LongArrayBuilder(int dimension) {
         super(dimension);
     }
 
-    public LongMatrixBuilder add(long... values) {
+    public LongArrayBuilder add(long... values) {
         if (values == null || values.length != dimension())
             throw new IllegalArgumentException();
         this.values.add(values);

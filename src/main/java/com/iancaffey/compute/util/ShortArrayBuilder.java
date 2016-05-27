@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * IntMatrixBuilder
+ * ShortArrayBuilder
  *
  * @author Ian Caffey
  * @since 1.0
  */
-public class IntMatrixBuilder extends AbstractMatrixBuilder<int[][]> {
-    private final List<int[]> values = new ArrayList<>();
+public class ShortArrayBuilder extends AbstractArrayBuilder<short[][]> {
+    private final List<short[]> values = new ArrayList<>();
 
-    public IntMatrixBuilder(int dimension) {
+    public ShortArrayBuilder(int dimension) {
         super(dimension);
     }
 
-    public IntMatrixBuilder add(int... values) {
+    public ShortArrayBuilder add(short... values) {
         if (values == null || values.length != dimension())
             throw new IllegalArgumentException();
         this.values.add(values);
@@ -24,9 +24,9 @@ public class IntMatrixBuilder extends AbstractMatrixBuilder<int[][]> {
     }
 
     @Override
-    public int[][] build() {
+    public short[][] build() {
         if (values.size() < 3)
             throw new IllegalArgumentException();
-        return values.toArray(new int[values.size()][]);
+        return values.toArray(new short[values.size()][]);
     }
 }

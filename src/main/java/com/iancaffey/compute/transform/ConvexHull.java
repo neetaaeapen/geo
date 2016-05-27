@@ -1,6 +1,6 @@
 package com.iancaffey.compute.transform;
 
-import com.iancaffey.compute.util.IntMatrixBuilder;
+import com.iancaffey.compute.util.IntArrayBuilder;
 
 /**
  * ConvexHull
@@ -15,7 +15,7 @@ public class ConvexHull {
     public static int[][] giftWrap(int[][] poly) {
         if (poly == null || poly.length < 3)
             throw new IllegalArgumentException();
-        IntMatrixBuilder builder = new IntMatrixBuilder(poly[0].length);
+        IntArrayBuilder builder = new IntArrayBuilder(poly[0].length);
 
         return poly;
     }

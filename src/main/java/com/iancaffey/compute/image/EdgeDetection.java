@@ -1,6 +1,6 @@
 package com.iancaffey.compute.image;
 
-import com.iancaffey.compute.util.IntMatrixBuilder;
+import com.iancaffey.compute.util.IntArrayBuilder;
 
 import java.awt.*;
 import java.util.stream.IntStream;
@@ -32,7 +32,7 @@ public class EdgeDetection {
     public static int[][] grayscaleMatch(int[][] matrix, int rgb, double threshold) {
         if (threshold < 0 || threshold > 1)
             throw new IllegalArgumentException();
-        IntMatrixBuilder builder = new IntMatrixBuilder(2);
+        IntArrayBuilder builder = new IntArrayBuilder(2);
         IntStream.range(0, matrix.length).forEach(y -> IntStream.range(0, matrix[y].length)
                 .filter(x -> Math.abs((matrix[y][x] - rgb) / (double) Color.BLACK.getRGB()) < threshold)
                 .forEach(x -> builder.add(x, y)));

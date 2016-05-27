@@ -1,15 +1,15 @@
 package com.iancaffey.compute.util;
 
 /**
- * AbstractMatrixBuilder
+ * AbstractArrayBuilder
  *
  * @author Ian Caffey
  * @since 1.0
  */
-public abstract class AbstractMatrixBuilder<M> implements MatrixBuilder<M> {
+public abstract class AbstractArrayBuilder<M> implements ArrayBuilder<M> {
     private final int dimension;
 
-    protected AbstractMatrixBuilder(int dimension) {
+    protected AbstractArrayBuilder(int dimension) {
         if (dimension < 1)
             throw new IllegalArgumentException();
         this.dimension = dimension;
