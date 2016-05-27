@@ -1,4 +1,4 @@
-import com.iancaffey.compute.image.EdgeDetection;
+import com.iancaffey.compute.transform.EdgeDetection;
 import com.iancaffey.compute.image.Grayscale;
 import com.iancaffey.compute.image.RasterTransform;
 import com.iancaffey.compute.transform.ConvexHull;
@@ -29,7 +29,7 @@ public class Test {
                 .mapToObj(imageLoader(orig))
                 .map(RasterTransform::toMatrix)
                 .map(buffer -> RasterTransform.apply(buffer, Grayscale.LUMINOSITY))
-                .map(buffer -> EdgeDetection.grayscaleMatch(buffer, Color.BLACK, EdgeDetection.VERY_PRECISE))
+                .map(buffer -> EdgeDetection.matchAll(buffer, Color.BLACK.getRGB(), 50))
                 .map(ConvexHull::giftWrap).map(PolyTransform::toImage).forEach(imageRenderer(edges));
 
         JFrame frame = new JFrame("Edge Detection");
