@@ -1,4 +1,4 @@
-package com.iancaffey.polygon.util;
+package com.iancaffey.compute.image;
 
 /**
  * Grayscale
@@ -27,5 +27,5 @@ public enum Grayscale implements PixelTransform {
             int sum = (int) Math.round(0.21 * r + 0.72 * g + 0.07 * b);
             return ((a & 0xFF) << 24) | ((sum & 0xFF) << 16) | ((sum & 0xFF) << 8) | ((sum & 0xFF));
         }
-    };
+    }
 }

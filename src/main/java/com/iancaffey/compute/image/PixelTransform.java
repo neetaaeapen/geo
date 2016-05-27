@@ -1,4 +1,4 @@
-package com.iancaffey.polygon.util;
+package com.iancaffey.compute.image;
 
 /**
  * PixelTransform

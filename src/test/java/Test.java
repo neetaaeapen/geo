@@ -1,4 +1,8 @@
-import com.iancaffey.polygon.util.*;
+import com.iancaffey.compute.image.EdgeDetection;
+import com.iancaffey.compute.image.Grayscale;
+import com.iancaffey.compute.image.RasterTransform;
+import com.iancaffey.compute.transform.ConvexHull;
+import com.iancaffey.compute.transform.PolyTransform;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,17 +21,17 @@ import java.util.stream.IntStream;
  */
 public class Test {
     public static void main(String[] args) throws IOException {
-        JPanel orig = new JPanel(new GridLayout(1, 40));
-        JPanel edges = new JPanel(new GridLayout(1, 40));
+        int amount = 50;
+        JPanel orig = new JPanel(new GridLayout(1, amount));
+        JPanel edges = new JPanel(new GridLayout(1, amount));
 
-        IntStream.range(0, 50)
+        IntStream.range(0, amount)
                 .mapToObj(imageLoader(orig))
-                .map(RasterTransform::toBuffer)
-                .map(RasterTransform.apply(Grayscale.LUMINOSITY))
-                .map(EdgeDetection.grayscaleMatch(Color.BLACK, EdgeDetection.VERY_PRECISE))
-                .map(ConvexHull::giftWrap)
-                .map(PolyTransform::toImage)
-                .forEach(imageRenderer(edges));
+                .map(RasterTransform::toMatrix)
+                .map(buffer -> RasterTransform.apply(buffer, Grayscale.LUMINOSITY))
+                .map(buffer -> EdgeDetection.grayscaleMatch(buffer, Color.BLACK, EdgeDetection.VERY_PRECISE))
+                .map(ConvexHull::giftWrap).map(PolyTransform::toImage).forEach(imageRenderer(edges));
+
         JFrame frame = new JFrame("Edge Detection");
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(orig, BorderLayout.NORTH);
