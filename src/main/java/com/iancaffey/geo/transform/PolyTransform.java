@@ -1,4 +1,4 @@
-package com.iancaffey.compute.transform;
+package com.iancaffey.geo.transform;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

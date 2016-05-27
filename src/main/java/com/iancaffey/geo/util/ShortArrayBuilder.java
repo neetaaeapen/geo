@@ -1,22 +1,22 @@
-package com.iancaffey.compute.util;
+package com.iancaffey.geo.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DoubleArrayBuilder
+ * ShortArrayBuilder
  *
  * @author Ian Caffey
  * @since 1.0
  */
-public class DoubleArrayBuilder extends AbstractArrayBuilder<double[][]> {
-    private final List<double[]> values = new ArrayList<>();
+public class ShortArrayBuilder extends AbstractArrayBuilder<short[][]> {
+    private final List<short[]> values = new ArrayList<>();
 
-    public DoubleArrayBuilder(int dimension) {
+    public ShortArrayBuilder(int dimension) {
         super(dimension);
     }
 
-    public DoubleArrayBuilder add(double... values) {
+    public ShortArrayBuilder add(short... values) {
         if (values == null || values.length != dimension())
             throw new IllegalArgumentException();
         this.values.add(values);
@@ -24,9 +24,9 @@ public class DoubleArrayBuilder extends AbstractArrayBuilder<double[][]> {
     }
 
     @Override
-    public double[][] build() {
+    public short[][] build() {
         if (values.size() < 3)
             throw new IllegalArgumentException();
-        return values.toArray(new double[values.size()][]);
+        return values.toArray(new short[values.size()][]);
     }
 }

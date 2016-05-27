@@ -1,4 +1,4 @@
-package com.iancaffey.compute.image;
+package com.iancaffey.geo.image;
 
 import java.awt.image.BufferedImage;
 import java.util.stream.IntStream;

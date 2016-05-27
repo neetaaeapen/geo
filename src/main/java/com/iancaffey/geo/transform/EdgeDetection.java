@@ -1,6 +1,6 @@
-package com.iancaffey.compute.transform;
+package com.iancaffey.geo.transform;
 
-import com.iancaffey.compute.util.IntArrayBuilder;
+import com.iancaffey.geo.util.IntArrayBuilder;
 
 import java.util.stream.IntStream;
 

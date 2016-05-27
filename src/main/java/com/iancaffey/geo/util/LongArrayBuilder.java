@@ -1,4 +1,4 @@
-package com.iancaffey.compute.util;
+package com.iancaffey.geo.util;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
-import com.iancaffey.compute.transform.EdgeDetection;
-import com.iancaffey.compute.image.Grayscale;
-import com.iancaffey.compute.image.RasterTransform;
-import com.iancaffey.compute.transform.ConvexHull;
-import com.iancaffey.compute.transform.PolyTransform;
+import com.iancaffey.geo.transform.EdgeDetection;
+import com.iancaffey.geo.image.Grayscale;
+import com.iancaffey.geo.image.RasterTransform;
+import com.iancaffey.geo.transform.ConvexHull;
+import com.iancaffey.geo.transform.PolyTransform;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -30,7 +30,9 @@ public class Test {
                 .map(RasterTransform::toMatrix)
                 .map(buffer -> RasterTransform.apply(buffer, Grayscale.LUMINOSITY))
                 .map(buffer -> EdgeDetection.matchAll(buffer, Color.BLACK.getRGB(), 50))
-                .map(ConvexHull::giftWrap).map(PolyTransform::toImage).forEach(imageRenderer(edges));
+                .map(ConvexHull::giftWrap)
+                .map(PolyTransform::toImage)
+                .forEach(imageRenderer(edges));
 
         JFrame frame = new JFrame("Edge Detection");
         JPanel panel = new JPanel(new BorderLayout());

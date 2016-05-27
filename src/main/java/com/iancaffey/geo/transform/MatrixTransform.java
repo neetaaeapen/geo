@@ -1,9 +1,9 @@
-package com.iancaffey.compute.transform;
+package com.iancaffey.geo.transform;
 
-import com.iancaffey.compute.util.DoubleArrayBuilder;
-import com.iancaffey.compute.util.IntArrayBuilder;
-import com.iancaffey.compute.util.LongArrayBuilder;
-import com.iancaffey.compute.util.ShortArrayBuilder;
+import com.iancaffey.geo.util.DoubleArrayBuilder;
+import com.iancaffey.geo.util.IntArrayBuilder;
+import com.iancaffey.geo.util.LongArrayBuilder;
+import com.iancaffey.geo.util.ShortArrayBuilder;
 
 import java.util.Arrays;
 
